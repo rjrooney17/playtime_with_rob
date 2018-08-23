@@ -1,0 +1,2 @@
+class Players(object):
+    pass
