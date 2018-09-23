@@ -1,19 +1,18 @@
 import click
+import Tkinter as tk
 
-from cards import Cards
 from board import Board
 
 @click.command()
 @click.argument("num_players")
 def main(num_players):
-    print("Clue: Not you Miss White, not you")
-    print("Let's use {} players".format(num_players))
+    print("Let's play clue with {} players".format(num_players))
 
-    cards = Cards()
-
-    board = Board()
-
-    players = Players()
+    root = tk.Tk()
+    root.title("Clue!!!")
+    root.geometry('{}x{}'.format(350, 550))
+    board = Board(root)
+    tk.mainloop()
 
 if "__main__" == __name__:
     main()
