@@ -4,7 +4,15 @@ from room import Room
 class DiningRoom(Room):
     shape = (7, 8)
     def __init__(self, parent):
-        super(DiningRoom, self).__init__(parent, DiningRoom.shape, "Dining Room")
+        #Use the parent frame for most of the dining room
+        super(DiningRoom, self).__init__(parent, (6,8), "Dining Room")
 
-        self.lbl2 = tk.Label(self.frame, text="Wierd shape")
-        self.lbl2.grid()
+        self.extra_frame = tk.Frame(self.parent, borderwidth=1, relief=tk.GROOVE, background="blue")
+
+    def grid(self, **kwargs):
+        super(DiningRoom, self).grid(**kwargs)
+
+        extra_row = int(self.frame.grid_info()['row']) + int(self.frame.grid_info()['rowspan'])
+        extra_column = int(self.frame.grid_info()['column']) + 3
+
+        self.extra_frame.grid(row=extra_row, column=extra_column, rowspan=1, columnspan=4, sticky="nesw")
