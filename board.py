@@ -1,7 +1,10 @@
-import logging
-import Tkinter as tk
 
-from square import WalkingSquare, EmptySquare
+import Tkinter as tk
+import logging
+#pizza
+
+from empty_single_square import EmptySingleSquare
+from walking_square import WalkingSquare
 
 from hall import Hall
 from study import Study
@@ -13,6 +16,10 @@ from billiard_room import BilliardRoom
 from conservatory import Conservatory
 from ball_room import BallRoom
 from kitchen import Kitchen
+
+
+
+
 
 class Board(object):
     def __init__(self, parent):
@@ -36,40 +43,40 @@ class Board(object):
                     sq = WalkingSquare(self.frame)
                     self.squares[r][c] = sq
                 else:
-                    sq = EmptySquare(self.frame)
+                    sq = EmptySingleSquare(frame)
                 sq.grid(row=r, column=c, sticky="nesw")
 
         self.init_rooms()
 
-    def init_rooms(self):
-        study = Study(self.frame)
+    def init_rooms(self, frame):
+        study = Study(frame)
         study.grid(row=0, column=0)
 
-        hall = Hall(self.frame)
+        hall = Hall(frame)
         hall.grid(row=0, column=9)
 
-        lounge = Lounge(self.frame)
+        lounge = Lounge(frame)
         lounge.grid(row=0, column=17)
 
-        library = Library(self.frame)
+        library = Library(frame)
         library.grid(row=6, column=0)
 
-        stairs = Stairs(self.frame)
+        stairs = Stairs(frame)
         stairs.grid(row=8, column=9)
 
-        dining_room = DiningRoom(self.frame)
+        dining_room = DiningRoom(frame)
         dining_room.grid(row=9, column=16)
 
-        billiard_room = BilliardRoom(self.frame)
+        billiard_room = BilliardRoom(frame)
         billiard_room.grid(row=12, column=0)
 
-        conservatory = Conservatory(self.frame)
+        conservatory = Conservatory(frame)
         conservatory.grid(row=19, column=0)
 
-        ball_room = BallRoom(self.frame)
+        ball_room = BallRoom(frame)
         ball_room.grid(row=17, column=8)
 
-        kitchen = Kitchen(self.frame)
+        kitchen = Kitchen(frame)
         kitchen.grid(row=18, column=18)
 
     def add_player(self, player):
