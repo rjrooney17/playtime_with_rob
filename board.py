@@ -1,5 +1,7 @@
 
 import Tkinter as tk
+from empty_single_square import EmptySingleSquare
+from walking_square import WalkingSquare
 
 from hall import Hall
 from study import Study
@@ -12,23 +14,6 @@ from conservatory import Conservatory
 from ball_room import BallRoom
 from kitchen import Kitchen
 
-class SingleSquare(object):
-    def __init__(self, parent, background):
-        self.shape = (1, 1)
-        self.frame = tk.Frame(parent, background="black")
-        self.lbl = tk.Label(self.frame, height=1, width=1, relief=tk.RIDGE, bg=background)
-        self.lbl.grid()
-
-    def grid(self, **kwargs):
-        self.frame.grid(row=kwargs["row"], column=kwargs["column"], sticky="nesw")
-
-class WalkingSquare(SingleSquare):
-    def __init__(self, parent):
-        super(WalkingSquare, self).__init__(parent, "yellow")
-
-class Empty(SingleSquare):
-    def __init__(self, parent):
-        super(Empty, self).__init__(parent, "white")
 
 
 
@@ -53,10 +38,10 @@ class Board(object):
                     sq = WalkingSquare(frame)
                     self.squares[r][c] = sq
                 else:
-                    sq = Empty(frame)
+                    sq = EmptySingleSquare(frame)
                 sq.grid(row=r, column=c, sticky="nesw")
 
-        self.init_rooms(frame)
+       # self.init_rooms(frame)
 
     def init_rooms(self, frame):
         study = Study(frame)

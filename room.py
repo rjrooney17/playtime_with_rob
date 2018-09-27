@@ -3,7 +3,7 @@ import Tkinter as tk
 class Room(object):
     def __init__(self, parent, shape, text):
         self.shape = shape
-        self.frame = tk.Frame(parent, borderwidth=1, relief=tk.GROOVE, background="blue")
+        self.frame = tk.Frame(parent, borderwidth=1, relief=tk.GROOVE, background="green")
         self.lbl = tk.Label(self.frame, text=text)
         self.lbl.grid()
 
