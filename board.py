@@ -1,5 +1,8 @@
 
 import Tkinter as tk
+import logging
+
+
 from empty_single_square import EmptySingleSquare
 from walking_square import WalkingSquare
 
@@ -25,23 +28,25 @@ class Board(object):
         for r in walking_squares:
             assert self.shape[1] == len(r), "Mismatched shapes {}".format(len(r))
 
-        # Visualization, get it outta here
-        parent.grid_columnconfigure(0, minsize=5)
-        frame = tk.Frame(parent, border=3, relief=tk.GROOVE)
-        frame.grid()
+        self.frame = tk.Frame(parent, border=3, relief=tk.GROOVE)
+        for i in range(self.shape[0]):
+            self.frame.rowconfigure(i, weight=1)
+        for j in range(self.shape[1]):
+            self.frame.columnconfigure(j, weight=1)
+        self.frame.grid(sticky="nesw")
 
         self.squares = [[None for _ in range(self.shape[1])] for _ in range(self.shape[0])]
 
         for r in range(len(walking_squares)):
             for c in range(len(walking_squares[r])):
                 if walking_squares[r][c]:
-                    sq = WalkingSquare(frame)
+                    sq = WalkingSquare(self.frame)
                     self.squares[r][c] = sq
                 else:
                     sq = EmptySingleSquare(frame)
                 sq.grid(row=r, column=c, sticky="nesw")
 
-       # self.init_rooms(frame)
+        self.init_rooms()
 
     def init_rooms(self, frame):
         study = Study(frame)
@@ -73,6 +78,11 @@ class Board(object):
 
         kitchen = Kitchen(frame)
         kitchen.grid(row=18, column=18)
+
+    def add_player(self, player):
+        logging.info("Trying to add %s at %s", player.name, player.position)
+        sq = self.squares[player.position[0]][player.position[1]]
+        sq.place_player(player)
 
 walking_squares = [
     [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
